@@ -1,0 +1,433 @@
+{
+  "name": "Construction Quote Requests",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Request a Quote",
+        "formDescription": "Tell us about your construction project and we will get back to you.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Email",
+              "fieldType": "email",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Phone"
+            },
+            {
+              "fieldLabel": "Project Type",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "New house"
+                  },
+                  {
+                    "option": "Renovation"
+                  },
+                  {
+                    "option": "Road / Infrastructure"
+                  },
+                  {
+                    "option": "Commercial Building"
+                  },
+                  {
+                    "option": "Other"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Location",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Budget",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Under 10 million RWF"
+                  },
+                  {
+                    "option": "10 to 50 million RWF"
+                  },
+                  {
+                    "option": "50 to 200 million RWF"
+                  },
+                  {
+                    "option": "Over 200 million RWF"
+                  },
+                  {
+                    "option": "not sure yet"
+                  }
+                ]
+              }
+            },
+            {
+              "fieldLabel": "Description",
+              "fieldType": "textarea",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        -416,
+        -16
+      ],
+      "id": "31117edd-6d81-484c-9a02-fbe7721e5ab8",
+      "name": "On form submission",
+      "webhookId": "0d1b2cdb-24e2-4686-9cfa-d677fea50439"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "YOUR_SHEET_ID",
+          "mode": "list",
+          "cachedResultName": "construction Quote Requests",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Date": "={{ $now }}",
+            "Description": "={{ $('On form submission').item.json.Description }}",
+            "Name": "={{ $('On form submission').item.json.Name }}",
+            "Email": "={{ $('On form submission').item.json.Email }}",
+            "Phone": "={{ $('On form submission').item.json.Phone }}",
+            "Project type": "={{ $('On form submission').item.json['Project Type'] }}",
+            "Location": "={{ $('On form submission').item.json.Location }}",
+            "Budget": "={{ $('On form submission').item.json.Budget }}",
+            "Category": "={{ $json.category }}",
+            "Urgency": "={{ $json.urgency }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Project type",
+              "displayName": "Project type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Location",
+              "displayName": "Location",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Budget",
+              "displayName": "Budget",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Description",
+              "displayName": "Description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Category",
+              "displayName": "Category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Urgency",
+              "displayName": "Urgency",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        160,
+        -288
+      ],
+      "id": "bec18f65-a3e2-4f81-aff5-b9db84ef4f14",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "rXTOKgSr0DA6pYPo",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('On form submission').item.json.Email }}",
+        "subject": "=We received your quote request, {{ $('On form submission').item.json.Name }}",
+        "message": "=<p>Hello {{ $('On form submission').item.json.Name }},</p>  <p>Thank you for contacting us about your <b>{{ $('On form submission').item.json['Project Type'] }}</b> project in {{ $('On form submission').item.json.Location }}.</p>  <p>We have received your request and one of our engineers will review the details and contact you within 24 hours.</p>  <p>Best regards,<br> The Project Team</p>",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        416,
+        -128
+      ],
+      "id": "94a0e4f2-f27e-4e22-8d0f-791f15669c3c",
+      "name": "Send a message",
+      "webhookId": "766aa39e-f3d8-4edf-b09d-8edb60e01b36",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jZ9kEg9OSrxyjhr1",
+          "name": "Gmail account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "owner@example.com",
+        "subject": "=New quote request: {{ $('On form submission').item.json['Project Type'] }} in {{ $('On form submission').item.json.Location }}",
+        "message": "=<h3>New quote request</h3>  <p><b>Name:</b> {{ $('On form submission').item.json.Name }}<br> <b>Email:</b> {{ $('On form submission').item.json.Email }}<br> <b>Phone:</b> {{ $('On form submission').item.json.Phone }}<br> <b>Project type:</b> {{ $('On form submission').item.json['Project Type'] }}<br> <b>Location:</b> {{ $('On form submission').item.json.Location }}<br> <b>Budget:</b> {{ $('On form submission').item.json.Budget }}</p>  <p><b>Description:</b><br> {{ $('On form submission').item.json.Description }}</p>",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        640,
+        -160
+      ],
+      "id": "d4db8d17-24bc-4cc4-b428-0f8db84c68dd",
+      "name": "Send a message1",
+      "webhookId": "27b578a8-fa29-42cc-8f3e-00a327a1b637",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jZ9kEg9OSrxyjhr1",
+          "name": "Gmail account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-flash-latest",
+          "mode": "list",
+          "cachedResultName": "models/gemini-flash-latest"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are an assistant for a construction company. Read this quote request and reply with ONLY valid JSON, no extra text, in exactly this format:\n{\"category\": \"...\", \"urgency\": \"...\"}\n\ncategory must be one of: New House, Renovation, Road/Infrastructure, Commercial Building, Other\nurgency must be one of: Low, Medium, High\n\nRules for urgency: High if the description mentions damage, a safety risk, or a tight deadline. Low if it is only early planning. Otherwise Medium.\n\nProject type selected: {{ $json['Project Type'] }}\nDescription: {{ $json.Description }}"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        -192,
+        -16
+      ],
+      "id": "181d3c74-4f09-4b7f-b7f7-2cd193d983e2",
+      "name": "Message a model",
+      "retryOnFail": true,
+      "waitBetweenTries": 3000,
+      "credentials": {
+        "googlePalmApi": {
+          "id": "N4LCWBmjVwk8PJrY",
+          "name": "Google Gemini(PaLM) Api account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d331003b-cffc-457e-a107-63f2cad0b0e8",
+              "name": "category",
+              "value": "={{ JSON.parse($json.content.parts[0].text).category }}",
+              "type": "string"
+            },
+            {
+              "id": "f2b765a2-ae28-4624-93bb-33d11d35ad4b",
+              "name": "urgency",
+              "value": "={{ JSON.parse($json.content.parts[0].text).urgency }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        224,
+        0
+      ],
+      "id": "cb3bd9b0-1484-4248-8bbb-4e9fc68fc491",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": true
+  },
+  "versionId": "2ad6eac1-a3ca-46bc-9287-d45b234dd96d",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ffe43414dcca6f744e3a1c2a350e66439f5bdbef94a7b76139bffc878689126c"
+  },
+  "nodeGroups": [],
+  "id": "MLXaoaiQKMamLp33",
+  "tags": []
+}
